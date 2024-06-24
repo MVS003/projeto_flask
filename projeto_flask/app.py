@@ -6,6 +6,10 @@ lista_produtos = [
     {"nome": "Água", "descricao": "mata sede", "preco": "2,00", "imagem": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYF7-2U3rCX7CXaDcc9A0YtSpl7ngJbm0PqQ&s"}
 ]
 
+doc = [
+    {"numero":"57643876309"}
+]
+
 app = Flask("minha app")
 
 @app.route("/")
@@ -44,6 +48,30 @@ def salvar_produto():
 
     return redirect(url_for("produtos"))
 
+#24/06
+@app.route ("/gerar_cpf")
+def gerar_cpf():
+    return render_template("gerar_cpf.html")
+
+@app.route ("/gerar_cnpj")
+def gerar_cnpj():
+    return render_template("gerar_cnpj.html")
+
+@app.route ("/verificar_cpf")
+def verificar_cpf():
+    return render_template("verificar_cpf.html")
+
+@app.route ("/verificar_cnpj")
+def verificar_cnpj():
+    return render_template("verificar_cnpj.html")
+
+@app.route("/confirma_cpf", methods=["POST"])
+def validar():
+    numero=request.form['numero']
+    cpf= {"numero": numero}
+    doc.append(cpf)
+
+    return render_template("confirma_cpf.html")
 
 #app.run(port=5001)
 
