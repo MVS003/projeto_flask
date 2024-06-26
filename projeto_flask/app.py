@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-
+    
 lista_produtos = [ 
     {"nome": "Coca-cola", "descricao": "veneno", "preco": "10,00", "imagem": "https://choppmaisfacil.com.br/image/cache/catalog/produtos/Refrigerantes/1648036735_1SZ-1000x1000.jpg"},
     {"nome": "Doritos", "descricao": "suja mão", "preco": "6,00", "imagem": "https://images-americanas.b2w.io/produtos/01/00/img3/33584764/9/3358476409_1GG.jpg"},
@@ -47,7 +47,7 @@ def salvar_produto():
     lista_produtos.append(produto)
 
     return redirect(url_for("produtos"))
-
+   
 #24/06
 @app.route ("/gerar_cpf")
 def gerar_cpf():
