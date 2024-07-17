@@ -4,4 +4,8 @@
 
 {% block content %}
 <h1>Validar CNPJ</h1>
+<form action="/verificarcnpj" method="POST">
+    <input type="text" name="cnpj" id="cnpj" required> 
+    <button type="submit">Validar</button>
+</form>
 {% endblock%}

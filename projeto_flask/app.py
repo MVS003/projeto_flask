@@ -49,29 +49,45 @@ def salvar_produto():
     return redirect(url_for("produtos"))
    
 #24/06
-@app.route ("/gerar_cpf")
+
+@app.route("/gerar_cpf")
 def gerar_cpf():
-    return render_template("gerar_cpf.html")
+    cpf = CPF()
+    new_cpf = cpf.generate()
+    return render_template('gerar_cpf.html', show_cpf=new_cpf)
 
-@app.route ("/gerar_cnpj")
+@app.route("/gerar_cnpj")
 def gerar_cnpj():
-    return render_template("gerar_cnpj.html")
+    cnpj=CNPJ()
+    new_cnpj=cnpj.generate()
+    return render_template('gerar_cnpj.html', show_cnpj=new_cnpj)
 
-@app.route ("/verificar_cpf")
-def verificar_cpf():
-    return render_template("verificar_cpf.html")
+@app.route("/verificar_cpf")
+def validar_cpf_form():
+    return render_template('verificar_cpf.html')
 
-@app.route ("/verificar_cnpj")
-def verificar_cnpj():
-    return render_template("verificar_cnpj.html")
+@app.route("/verificarcpf", methods=['POST'])
+def validar_cpf():
+    cpf_validate = request.form['cpf']
+    cpf = CPF()
+    if cpf.validate(cpf_validate):
+        result = {"status":"CPF Válido","info":"cpf_validate"}
+    else:
+        result = {"status":"CPF Inválido","info":cpf_validate}
+    return render_template('validar_result.html',result=result)
 
-@app.route("/confirma_cpf", methods=["POST"])
-def validar():
-    numero=request.form['numero']
-    cpf= {"numero": numero}
-    doc.append(cpf)
+@app.route("/verificar_cnpj")
+def cnpj_form():
+    return render_template('verificar_cnpj.html')
 
-    return render_template("confirma_cpf.html")
+@app.route("/verificarcnpj", methods=['POST'])
+def validar_cnpj():
+    cnpj_validate = request.form['cnpj']
+    cnpj = CNPJ()
+    if cnpj.validate(cnpj_validate):
+        result = {"status":"CNPJ Válido","info":cnpj_validate}
+    else:
+        result = {"status":"CNPJ Inválido","info":cnpj_validate}
+    return render_template('validar_result.html',result=result)
 
-#app.run(port=5001)
-
+app.run(port=5001)
